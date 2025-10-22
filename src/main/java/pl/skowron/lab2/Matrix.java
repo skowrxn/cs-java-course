@@ -1,4 +1,4 @@
-package pl.skowrxn.lab2;
+package pl.skowron.lab2;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -89,6 +89,16 @@ public class Matrix {
         return matrix;
     }
 
+    public Matrix add(double w) {
+        Matrix matrix = new Matrix(rows, cols);
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                matrix.set(row, col, data[row * cols + col] + w);
+            }
+        }
+        return matrix;
+    }
+
     public int[] shape(){
         return new int[]{rows, cols};
     }
@@ -103,6 +113,19 @@ public class Matrix {
         return matrix;
     }
 
+    public Matrix sub(Matrix m) {
+        if (rows != m.rows || cols != m.cols)
+            throw new RuntimeException(String.format("%d x %d matrix can't be subtracted from %d x %d", rows, cols, m.rows, m.cols));
+        Matrix matrix = new Matrix(rows, cols);
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                matrix.set(row, col, data[row * cols + col] - m.get(row, col));
+            }
+        }
+        return matrix;
+    }
+
+
     public Matrix mul(double w){
         Matrix matrix = new Matrix(rows, cols);
         for (int row = 0; row < rows; row++) {
@@ -113,11 +136,37 @@ public class Matrix {
         return matrix;
     }
 
+    public Matrix mul(Matrix m) {
+        if (rows != m.rows || cols != m.cols)
+            throw new RuntimeException(String.format("%d x %d matrix can't be multiplied by %d x %d", rows, cols, m.rows, m.cols));
+        Matrix matrix = new Matrix(rows, cols);
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                matrix.set(row, col, data[row * cols + col] * m.get(row, col));
+            }
+        }
+        return matrix;
+    }
+    
+    
+
     public Matrix div(double w) {
         Matrix matrix= new Matrix(rows, cols);
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++){
                 matrix.set(row, col, data[row*cols + col] / w);
+            }
+        }
+        return matrix;
+    }
+
+    public Matrix div(Matrix m) {
+        if (rows != m.rows || cols != m.cols)
+            throw new RuntimeException(String.format("%d x %d matrix can't be divided by %d x %d", rows, cols, m.rows, m.cols));
+        Matrix matrix = new Matrix(rows, cols);
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                matrix.set(row, col, data[row * cols + col] / m.get(row, col));
             }
         }
         return matrix;

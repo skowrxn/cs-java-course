@@ -1,4 +1,4 @@
-package pl.skowrxn.laby;
+package pl.skowron.laby;
 
 public class Main {
 
